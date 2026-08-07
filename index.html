@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-wrap">
+    <header class="hero">
+      <div class="hero__content">
+        <h1>Happy Birthday, My Love!❤️</h1>
+        <p>14 August is a day made for you. Tap the hearts and discover bright surprises just for you.</p>
+      </div>
+
+      <div class="hero__visual">
+        <div class="photo-card">
+          <div class="photo-card__stamp">For my love</div>
+          <div class="photo-card__image"></div>
+          <div class="photo-card__caption">A dreamy love frame for your special day.</div>
+        </div>
+
+        <div class="hero-cartoon">
+          <div class="hero-cartoon__bubble">You make every heartbeat feel like a celebration.</div>
+          <div class="hero-cartoon__figure">
+            <svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="82" cy="112" r="54" fill="#ffe3f2" />
+              <circle cx="178" cy="108" r="50" fill="#ffd8ef" />
+              <circle cx="68" cy="95" r="12" fill="#4a1e4a" />
+              <circle cx="95" cy="95" r="12" fill="#4a1e4a" />
+              <circle cx="160" cy="90" r="11" fill="#4a1e4a" />
+              <circle cx="185" cy="90" r="11" fill="#4a1e4a" />
+              <path d="M62 132 q18 18 36 0" stroke="#a62e82" stroke-width="6" fill="none" stroke-linecap="round" />
+              <path d="M154 130 q18 14 36 0" stroke="#c82f90" stroke-width="6" fill="none" stroke-linecap="round" />
+              <path d="M110 68 c12 -16 32 -16 44 0 c12 16 4 40 -22 52 c-26 -12 -34 -36 -22 -52z" fill="#ff9cd1" />
+              <path d="M188 58 c10 -14 28 -14 38 0 c10 14 2 34 -18 44 c-20 -10 -28 -30 -20 -44z" fill="#ffb7d8" />
+              <path d="M188 58 c10 -14 28 -14 38 0 c10 14 2 34 -18 44 c-20 -10 -28 -30 -20 -44z" fill="none" stroke="#fff" stroke-width="4" opacity="0.7" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="hero-hearts">
+          <span class="floating-heart" style="--x: 15%; --delay: 0s;">💖</span>
+          <span class="floating-heart" style="--x: 52%; --delay: 0.35s;">💕</span>
+          <span class="floating-heart" style="--x: 82%; --delay: 0.7s;">💗</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="message-card">
+        <div class="message-card__top">
+          <span class="date">14 August</span>
+          <div class="ribbon">Surprise</div>
+        </div>
+
+        <div class="surprise-panel" id="surprisePanel">
+          <p class="surprise-text">Touch a heart to reveal a sweet note.</p>
+          <div class="heart-row" id="heartRow">
+            <button type="button" class="heart-card" data-card-index="0">
+              <span class="heart-card__face heart-card__front">💖</span>
+              <span class="heart-card__face heart-card__back">Tap to reveal our first message.</span>
+            </button>
+            <button type="button" class="heart-card" data-card-index="1">
+              <span class="heart-card__face heart-card__front">❤️</span>
+              <span class="heart-card__face heart-card__back">Tap to reveal our second message.</span>
+            </button>
+            <button type="button" class="heart-card" data-card-index="2">
+              <span class="heart-card__face heart-card__front">💘</span>
+              <span class="heart-card__face heart-card__back">Tap to reveal our third message.</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="notes">
+        <div class="note-card">
+          <h2>How much I love you</h2>
+          <p>Each surprise is a little reminder of the warmth, joy, and laughter you bring into my life.</p>
+          <a class="surprise-link" href="cake.html">Open a cake surprise</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <canvas id="confettiCanvas"></canvas>
+  <script src="script.js"></script>
+</body>
+</html>
