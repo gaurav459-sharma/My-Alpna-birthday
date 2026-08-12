@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Say It First 💕</title>
+  <style>
+    :root{--bg:#fff0f6;--accent:#ff6fa3;--muted:#6b2b4a}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    .wrap{position:relative;min-height:100%;display:flex;align-items:center;justify-content:center;padding:32px;background:linear-gradient(180deg,#fff0f6 0%, #fff 60%)}
+    .card{position:relative;z-index:3;background:#fff;border-radius:20px;box-shadow:0 12px 30px rgba(107,43,74,0.12);max-width:760px;width:100%;padding:28px;display:flex;gap:20px;align-items:center}
+    .visual{width:44%;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .visual img{width:100%;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,0.08)}
+    .content{width:56%;}
+    h1{margin:0 0 8px 0;color:var(--muted)}
+    p{margin:0 0 16px 0;color:#6b3a55}
+    .input-row{display:flex;gap:8px;align-items:center}
+    input.cute{flex:1;padding:12px 14px;border-radius:12px;border:2px solid #ffd6e8;background:linear-gradient(180deg,#fff 0%,#fff6fb 100%);font-size:16px}
+    button.go{padding:12px 18px;border-radius:12px;border:none;background:var(--accent);color:white;font-weight:600;cursor:pointer;box-shadow:0 8px 18px rgba(255,111,163,0.18)}
+    .hint{font-size:13px;color:#8a3b5f;margin-top:10px}
+    .heart{position:fixed;left:50%;top:8vh;transform:translateX(-50%);font-size:clamp(32px,6vw,72px);animation:beat 1s infinite ease-in-out;z-index:1;pointer-events:none;opacity:0.98}
+    @keyframes beat{0%{transform:translateX(-50%) scale(1)}30%{transform:translateX(-50%) scale(1.18)}60%{transform:translateX(-50%) scale(0.95)}100%{transform:translateX(-50%) scale(1)}}
+    .big-heart{position:fixed;right:4vw;bottom:4vh;width:clamp(80px,18vw,160px);height:clamp(80px,18vw,160px);background:radial-gradient(circle at 30% 30%,#fff6fb, #ffd6e8);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(255,111,163,0.12);pointer-events:none}
+    .big-heart::before{content:'♥';font-size:clamp(28px,6vw,64px);color:var(--accent);line-height:1}
+    .success{padding:12px 16px;border-radius:12px;background:linear-gradient(90deg,#d1ffe9,#d8fff7);color:#056752;margin-top:14px;display:none}
+    .confetti{pointer-events:none}
+    @media (max-width:720px){.card{flex-direction:column;padding:18px}.visual{width:100%}.content{width:100%}.heart{top:4vh}}
+    @media (max-width:480px){.heart{display:none}.big-heart{display:none}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="dialog" aria-labelledby="gateTitle">
+      <div class="visual">
+        <img src="images/cf9f58f809d68c8e4cd6659d022f047b.jpg" alt="cute bear" />
+        <div style="font-size:12px;color:#9b4a6a">your future husband asking for some love 🧸</div>
+      </div>
+      <div class="content">
+        <h1 id="gateTitle">One small promise before the surprises 💌</h1>
+        <p>Type the words "I love you" below and tap the pink button — only then the surprises will open. Be sweet, be you, be my cutiePie💝</p>
+
+        <div class="input-row">
+          <input class="cute" id="loveInput" placeholder="Type: I love you" aria-label="Type I love you" />
+          <button class="go" id="submitBtn">Say it</button>
+        </div>
+        <div class="hint">Tip: capitalization doesn't matter — just type it with love ❤️</div>
+        <div class="success" id="successBox">Perfect! Opening your surprises…</div>
+      </div>
+    </div>
+    <div class="big-heart" aria-hidden="true"></div>
+  </div>
+
+  <canvas id="confettiCanvas" class="confetti"></canvas>
+  <script>
+    const input = document.getElementById('loveInput');
+    const btn = document.getElementById('submitBtn');
+    const success = document.getElementById('successBox');
+
+    function normalize(s){return s.replace(/[^a-zA-Z]/g,'').toLowerCase()}
+    function unlocked(){localStorage.setItem('unlocked','1')}
+
+    btn.addEventListener('click',()=>{
+      const val = normalize(input.value||'')
+      if(val === 'iloveyou'){
+        success.style.display='block'
+        unlocked()
+        startConfetti()
+        setTimeout(()=>{window.location.href='index.html'},1400)
+      } else {
+        input.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}],{duration:300})
+        input.focus()
+      }
+    })
+
+    input.addEventListener('keyup',(e)=>{if(e.key==='Enter') btn.click()})
+
+    // Minimal confetti effect
+    function startConfetti(){
+      const canvas = document.getElementById('confettiCanvas')
+      const ctx = canvas.getContext('2d')
+      canvas.width = innerWidth; canvas.height = innerHeight
+      const pieces = []
+      for(let i=0;i<60;i++) pieces.push({x:Math.random()*canvas.width,y:Math.random()*-canvas.height,vy:2+Math.random()*6, size:4+Math.random()*8, color:['#ff69b4','#ffd6e8','#ffb3d1'][Math.floor(Math.random()*3)], r:Math.random()*360})
+      let t=0
+      function frame(){
+        ctx.clearRect(0,0,canvas.width,canvas.height)
+        pieces.forEach(p=>{p.y+=p.vy; p.x+=Math.sin((t+p.r)/10); ctx.fillStyle=p.color; ctx.fillRect(p.x,p.y,p.size,p.size); if(p.y>canvas.height) p.y=-20})
+        t+=1; requestAnimationFrame(frame)
+      }
+      frame()
+      setTimeout(()=>{ctx.clearRect(0,0,canvas.width,canvas.height)},2500)
+    }
+  </script>
+</body>
+</html>
